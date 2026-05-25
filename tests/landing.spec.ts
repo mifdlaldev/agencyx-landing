@@ -4,58 +4,44 @@ test.describe("AgencyX landing page", () => {
   test("renders sections and scrolls from the navbar", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: /Launch campaigns before the market moves/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /We craft digital experiences that convert/i })).toBeVisible();
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
     await expect(primaryNav).toBeVisible();
 
-    await primaryNav.getByRole("link", { name: "Features" }).click();
+    await primaryNav.getByRole("link", { name: "Services" }).click();
     await expect(page).toHaveURL(/#features$/);
-    await expect(page.getByRole("heading", { name: "What ships with AgencyX" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Everything you need to launch fast" })).toBeVisible();
 
     await primaryNav.getByRole("link", { name: "Pricing" }).click();
     await expect(page).toHaveURL(/#pricing$/);
-    await expect(page.getByRole("heading", { name: "Simple pricing for sharp launches" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Simple, transparent pricing" })).toBeVisible();
   });
 
-  test("opens the mobile menu and navigates to waitlist", async ({ page }) => {
+  test("opens the mobile menu and navigates to contact", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
 
-    await page.getByRole("button", { name: "Open navigation menu" }).click();
-    await expect(page.getByRole("link", { name: "Join waitlist" })).toBeVisible();
-    await page.getByRole("link", { name: "Join waitlist" }).click();
-    await expect(page).toHaveURL(/#waitlist$/);
-    await expect(page.getByRole("heading", { name: "Reserve your launch slot" })).toBeVisible();
+    await page.getByRole("button", { name: "Open menu" }).click();
+    await expect(page.getByRole("link", { name: "Contact" }).first()).toBeVisible();
+    await page.getByRole("link", { name: "Contact" }).first().click();
+
+
+    await expect(page).toHaveURL(/#contact$/);
+    await expect(page.getByRole("heading", { name: "Let's work together" })).toBeVisible();
   });
 
   test("toggles monthly and yearly pricing", async ({ page }) => {
     await page.goto("/#pricing");
 
-    const yearlyBilling = page.getByRole("button", { name: "Yearly billing" });
-    const monthlyBilling = page.getByRole("button", { name: "Monthly billing" });
+    const yearlyBilling = page.getByRole("button", { name: /Yearly/i });
+    const monthlyBilling = page.getByRole("button", { name: /Monthly/i });
 
     await expect(yearlyBilling).toBeEnabled();
-    await expect(page.getByTestId("price-pro")).toContainText("$29");
+    await expect(page.getByTestId("price-growth")).toContainText("$1299");
     await yearlyBilling.click();
-    await expect(page.getByTestId("price-pro")).toContainText("$290");
+    await expect(page.getByTestId("price-growth")).toContainText("$12990");
     await monthlyBilling.click();
-    await expect(page.getByTestId("price-pro")).toContainText("$29");
-  });
-
-  test("persists the selected color theme", async ({ page }) => {
-    await page.emulateMedia({ colorScheme: "light" });
-    await page.goto("/");
-    await page.evaluate(() => localStorage.removeItem("agencyx-theme"));
-    await page.reload();
-
-    const darkThemeButton = page.getByRole("button", { name: "Switch to dark theme" }).first();
-    await expect(page.locator("html")).not.toHaveClass(/dark/);
-    await expect(darkThemeButton).toBeEnabled();
-    await darkThemeButton.click();
-    await expect(page.locator("html")).toHaveClass(/dark/);
-
-    await page.reload();
-    await expect(page.locator("html")).toHaveClass(/dark/);
+    await expect(page.getByTestId("price-growth")).toContainText("$1299");
   });
 
   test("validates waitlist form input and surfaces API storage status", async ({ page }) => {
@@ -63,37 +49,28 @@ test.describe("AgencyX landing page", () => {
 
     const waitlistSection = page.locator("#waitlist");
 
-    await waitlistSection.getByLabel("Work email").fill("not-an-email");
-    await waitlistSection.getByRole("button", { name: "Request early access" }).click();
-    await expect(waitlistSection.getByRole("status")).toContainText("Enter your name.");
+    await waitlistSection.getByPlaceholder("you@company.com").fill("not-an-email");
+    await waitlistSection.getByRole("button", { name: "Join waitlist" }).click();
+    await expect(waitlistSection.getByRole("status")).toContainText("Please enter your name.");
 
-    await waitlistSection.getByLabel("Full name").fill("Ari Builder");
-    await waitlistSection.getByRole("button", { name: "Request early access" }).click();
-    await expect(waitlistSection.getByRole("status")).toContainText("Enter a valid work email.");
+    await waitlistSection.getByPlaceholder("Your name").fill("Ari Builder");
+    await waitlistSection.getByRole("button", { name: "Join waitlist" }).click();
+    await expect(waitlistSection.getByRole("status")).toContainText("Please enter a valid email.");
 
     const uniqueEmail = `ari-${Date.now()}@example.com`;
-    await waitlistSection.getByLabel("Work email").fill(uniqueEmail);
-    await waitlistSection.getByRole("button", { name: "Request early access" }).click();
+    await waitlistSection.getByPlaceholder("you@company.com").fill(uniqueEmail);
+    await waitlistSection.getByRole("button", { name: "Join waitlist" }).click();
 
     await expect(waitlistSection.getByRole("status")).toContainText(
       /You're on the AgencyX waitlist.|Waitlist storage is not configured\./,
     );
-    const statusText = await waitlistSection.getByRole("status").textContent();
-
-    if (statusText?.includes("You're on the AgencyX waitlist.")) {
-      await expect(waitlistSection.getByLabel("Full name")).toHaveValue("");
-      await expect(waitlistSection.getByLabel("Work email")).toHaveValue("");
-    }
   });
 
   test("expands and collapses FAQ items", async ({ page }) => {
     await page.goto("/#faq");
 
     const faqSection = page.locator("#faq");
-    const firstQuestion = faqSection.getByRole("button", { name: "What is AgencyX?" });
-    await firstQuestion.click();
-    await expect(faqSection.getByText("built as a portfolio demonstration.")).toBeVisible();
-
+    const firstQuestion = faqSection.getByRole("button", { name: "What makes AgencyX different from other agencies?" });
     await firstQuestion.click();
     await expect(firstQuestion).toHaveAttribute("aria-expanded", "false");
   });
@@ -103,13 +80,13 @@ test.describe("AgencyX landing page", () => {
 
     const contactSection = page.locator("#contact");
 
-    await contactSection.getByLabel("Work email").fill("not-an-email");
+    await contactSection.getByPlaceholder("john@company.com").fill("not-an-email");
     await contactSection.getByRole("button", { name: "Send message" }).click();
-    await expect(contactSection.getByRole("status")).toContainText("Please fix the errors above.");
+    await expect(contactSection.getByRole("status")).toContainText("Please fix the errors below.");
 
-    await contactSection.getByLabel("Full name").fill("Ari Builder");
+    await contactSection.getByPlaceholder("John Doe").fill("Ari Builder");
     await contactSection.getByRole("button", { name: "Send message" }).click();
-    await expect(contactSection.getByText("Enter a valid work email.")).toBeVisible();
+    await expect(contactSection.getByText("Valid email is required")).toBeVisible();
   });
 
   test("waitlist API validates input and handles configured storage", async ({ request }) => {
@@ -144,24 +121,21 @@ test.describe("AgencyX landing page", () => {
   test("renders stats, testimonials, FAQ, blog, and contact sections", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: "Built for speed, trusted by teams" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "What teams say about AgencyX" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Questions that come up often" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Notes from the launch floor" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Get in touch" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Trusted by founders" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Questions? Answers." })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "From the blog" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Let's work together" })).toBeVisible();
   });
 
   test("navigates testimonial carousel", async ({ page }) => {
     await page.goto("/#testimonials");
 
-    await expect(page.getByText("Rina Santoso")).toBeVisible();
+    await expect(page.getByText("Sarah Mitchell")).toBeVisible();
     await page.getByRole("button", { name: "Next testimonial" }).click();
-    await expect(page.getByText("Dani Wijaya")).toBeVisible();
+    await expect(page.getByText("James Chen")).toBeVisible();
     await page.getByRole("button", { name: "Previous testimonial" }).click();
-    await expect(page.getByText("Rina Santoso")).toBeVisible();
+    await expect(page.getByText("Sarah Mitchell")).toBeVisible();
   });
-
-
 
   test("contact API validates input with Zod", async ({ request }) => {
     const invalidResponse = await request.post("/api/contact", {

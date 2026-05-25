@@ -1,58 +1,65 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Twitter } from "lucide-react";
 
-const footerLinks = [
-  { href: "#features", label: "Features" },
+const links = [
+  { href: "#features", label: "Services" },
   { href: "#pricing", label: "Pricing" },
-  { href: "#waitlist", label: "Waitlist" },
+  { href: "#testimonials", label: "Testimonials" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#blog", label: "Blog" },
+  { href: "#contact", label: "Contact" },
 ] as const;
 
 const socials = [
   { href: "https://github.com/", label: "GitHub", icon: Github },
-  { href: "https://www.linkedin.com/", label: "LinkedIn", icon: Linkedin },
-  { href: "mailto:hello@agencyx.example", label: "Email", icon: Mail },
+  { href: "https://twitter.com/", label: "Twitter", icon: Twitter },
+  { href: "https://linkedin.com/", label: "LinkedIn", icon: Linkedin },
 ] as const;
 
 export function Footer() {
   return (
-    <footer id="contact" className="border-t border-line py-12">
-      <div className="section-shell flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-        <div>
-          <a href="#top" className="inline-flex items-center gap-3 font-bold">
-            <span className="grid h-10 w-10 place-items-center rounded-2xl bg-ink text-sm text-canvas dark:bg-brand dark:text-brand-ink">
-              AX
+    <footer className="border-t border-[var(--border-subtle)] py-12">
+      <div className="section-shell">
+        <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
+          <div className="flex items-center gap-2.5">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[var(--accent)] to-[var(--accent-secondary)] text-sm font-black text-[var(--bg-primary)]">
+              A
             </span>
-            <span className="text-lg tracking-[-0.03em]">AgencyX</span>
-          </a>
-          <p className="mt-3 max-w-md text-sm leading-6 text-muted">
-            Fictional SaaS/agency landing page built as a portfolio-ready Next.js MVP.
-          </p>
-        </div>
+            <span className="text-lg font-bold tracking-tight">AgencyX</span>
+          </div>
 
-        <div className="flex flex-wrap items-center gap-3">
-          {footerLinks.map((link) => (
-            <a key={link.href} href={link.href} className="rounded-full px-3 py-2 text-sm font-bold text-muted hover:text-ink">
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
-          {socials.map((social) => {
-            const Icon = social.icon;
-            return (
+          <nav className="flex flex-wrap items-center justify-center gap-6">
+            {links.map((link) => (
               <a
-                key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white/45 text-muted transition hover:border-brand hover:text-ink dark:bg-white/[0.04]"
+                key={link.href}
+                href={link.href}
+                className="text-sm text-[var(--text-muted)] transition hover:text-[var(--text-primary)]"
               >
-                <Icon aria-hidden="true" size={18} />
+                {link.label}
               </a>
-            );
-          })}
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            {socials.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-subtle)] text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                >
+                  <Icon size={16} />
+                </a>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-10 text-center text-sm text-[var(--text-muted)]">
+          © 2026 AgencyX. Built for demonstration.
         </div>
       </div>
-      <div className="section-shell mt-8 text-sm text-muted">© 2026 AgencyX. Dummy brand, real implementation.</div>
     </footer>
   );
 }

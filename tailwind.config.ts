@@ -10,28 +10,38 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        canvas: "hsl(var(--canvas))",
-        surface: "hsl(var(--surface))",
-        ink: "hsl(var(--ink))",
-        muted: "hsl(var(--muted))",
-        line: "hsl(var(--line))",
-        brand: {
-          DEFAULT: "hsl(var(--brand))",
-          ink: "hsl(var(--brand-ink))",
-          soft: "hsl(var(--brand-soft))",
+        bg: {
+          primary: "var(--bg-primary)",
+          secondary: "var(--bg-secondary)",
+          card: "var(--bg-card)",
         },
-        ember: "hsl(var(--ember))",
-      },
-      boxShadow: {
-        glow: "0 24px 80px -30px hsl(var(--brand) / 0.55)",
-        lift: "0 18px 50px -30px hsl(220 40% 4% / 0.45)",
+        text: {
+          primary: "var(--text-primary)",
+          secondary: "var(--text-secondary)",
+          muted: "var(--text-muted)",
+        },
+        accent: {
+          DEFAULT: "var(--accent)",
+          glow: "var(--accent-glow)",
+          secondary: "var(--accent-secondary)",
+        },
+        border: {
+          subtle: "var(--border-subtle)",
+          glow: "var(--border-glow)",
+        },
       },
       fontFamily: {
-        sans: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-body)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "Georgia", "serif"],
       },
       backgroundImage: {
-        "grain": "radial-gradient(circle at 1px 1px, hsl(var(--ink) / 0.10) 1px, transparent 0)",
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      animation: {
+        aurora: "aurora 20s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
       },
     },
   },

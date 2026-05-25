@@ -3,54 +3,52 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-  --canvas: 44 45% 96%;
-  --surface: 42 36% 91%;
-  --ink: 220 34% 11%;
-  --muted: 218 13% 39%;
-  --line: 220 20% 82%;
-  --brand: 172 61% 34%;
-  --brand-ink: 168 70% 12%;
-  --brand-soft: 170 44% 87%;
-  --ember: 19 91% 56%;
+  --bg-primary: #05050a;
+  --bg-secondary: #0a0a14;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(56, 189, 248, 0.2);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.4);
+  --accent-secondary: #818cf8;
+  --success: #34d399;
+  --error: #fb7185;
 }
 
 .dark {
-  color-scheme: dark;
-  --canvas: 220 37% 7%;
-  --surface: 221 31% 12%;
-  --ink: 42 44% 94%;
-  --muted: 217 16% 70%;
-  --line: 219 20% 24%;
-  --brand: 170 70% 45%;
-  --brand-ink: 168 76% 10%;
-  --brand-soft: 171 34% 18%;
-  --ember: 24 94% 62%;
+  --bg-primary: #05050a;
+  --bg-secondary: #0a0a14;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-glow);
 }
 
 @layer base {
   * {
-    @apply border-line;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply min-h-screen bg-canvas text-ink antialiased;
-    background:
-      radial-gradient(circle at 16% 8%, hsl(var(--brand) / 0.18), transparent 28rem),
-      radial-gradient(circle at 88% 12%, hsl(var(--ember) / 0.16), transparent 24rem),
-      linear-gradient(135deg, hsl(var(--canvas)), hsl(var(--surface)));
-  }
-
-  ::selection {
-    @apply bg-brand text-white;
-  }
-
-  :focus-visible {
-    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-canvas;
+    border-color: var(--border-subtle);
   }
 }
 
@@ -60,35 +58,124 @@
   }
 
   .eyebrow {
-    @apply text-sm font-bold uppercase tracking-[0.24em] text-brand;
+    @apply text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)];
   }
 
-  .glass-panel {
-    @apply border border-white/[0.35] bg-white/[0.62] shadow-lift backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.06];
+  .glass-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(20px);
   }
 
-  .mesh-bg {
-    background-image:
-      linear-gradient(120deg, hsl(var(--brand) / 0.12), transparent 36%),
-      radial-gradient(circle at 82% 22%, hsl(var(--ember) / 0.16), transparent 28rem),
-      radial-gradient(circle at 18% 92%, hsl(var(--brand) / 0.16), transparent 32rem);
+  .glass-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-glow);
   }
 
-  .text-reveal {
-    animation: reveal-text 1s steps(32, end) both;
-    clip-path: inset(0 100% 0 0);
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .launch-grid {
-    background-image:
-      linear-gradient(hsl(var(--ink) / 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--ink) / 0.08) 1px, transparent 1px);
-    background-size: 36px 36px;
+  .aurora-bg {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .aurora-bg::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 50%, rgba(129, 140, 248, 0.1), transparent),
+      radial-gradient(ellipse 50% 60% at 20% 80%, rgba(56, 189, 248, 0.08), transparent);
+    animation: aurora 20s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .glow-button {
+    position: relative;
+    background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+    color: var(--bg-primary);
+    font-weight: 700;
+    transition: all 0.3s ease;
+  }
+
+  .glow-button::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+    opacity: 0;
+    filter: blur(12px);
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  .glow-button:hover::before {
+    opacity: 0.6;
+  }
+
+  .glow-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .outline-button {
+    border: 1px solid var(--border-subtle);
+    background: transparent;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+  }
+
+  .outline-button:hover {
+    border-color: var(--accent);
+    background: rgba(56, 189, 248, 0.05);
+  }
+
+  .stat-number {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 700;
+    background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
-@keyframes reveal-text {
-  to {
-    clip-path: inset(0 0 0 0);
+
+@keyframes aurora {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(2%, 2%) rotate(1deg);
+  }
+  66% {
+    transform: translate(-1%, 1%) rotate(-1deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
   }
 }
 
@@ -97,12 +184,7 @@
     scroll-behavior: auto;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.001ms !important;
+  .aurora-bg::before {
+    animation: none;
   }
 }

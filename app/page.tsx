@@ -16,8 +16,8 @@ export default function Page() {
       <Navbar />
       <main>
         <Hero />
-        <Features />
         <Stats />
+        <Features />
         <Pricing />
         <Testimonials />
         <FAQ />

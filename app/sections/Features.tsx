@@ -1,7 +1,6 @@
-import { DatabaseZap, Gauge, Rocket, SplitSquareHorizontal } from "lucide-react";
+import { BarChart3, Layers, Palette, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { Card } from "@/components/ui/Card";
 
 const features: ReadonlyArray<{
   title: string;
@@ -9,24 +8,24 @@ const features: ReadonlyArray<{
   icon: LucideIcon;
 }> = [
   {
-    title: "Launch-ready pages",
-    description: "Hero, proof points, pricing, and waitlist sections are composed for a fast SaaS launch story.",
-    icon: Rocket,
+    title: "Conversion Design",
+    description: "Landing pages engineered to turn visitors into customers through data-driven design decisions.",
+    icon: BarChart3,
   },
   {
-    title: "Smooth animations",
-    description: "Framer Motion reveal wrappers keep movement intentional and reduce-motion friendly.",
-    icon: Gauge,
+    title: "Rapid Development",
+    description: "Ship in days, not months. Our streamlined process gets your page live while competitors are still planning.",
+    icon: Zap,
   },
   {
-    title: "Conversion-focused pricing",
-    description: "Monthly and yearly billing paths make pricing decisions visible without extra navigation.",
-    icon: SplitSquareHorizontal,
+    title: "Visual Systems",
+    description: "Cohesive design systems that scale. From color palettes to component libraries, everything stays consistent.",
+    icon: Palette,
   },
   {
-    title: "Database-backed waitlist",
-    description: "A Prisma route handler validates submissions before persisting launch demand.",
-    icon: DatabaseZap,
+    title: "Full-Stack Integration",
+    description: "Database-backed forms, API routes, and third-party integrations wired directly into your landing page.",
+    icon: Layers,
   },
 ] as const;
 
@@ -35,29 +34,29 @@ export function Features() {
     <section id="features" className="py-20 sm:py-28">
       <div className="section-shell">
         <FadeIn className="max-w-3xl">
-          <p className="eyebrow">Feature stack</p>
-          <h2 className="mt-4 font-display text-4xl font-black tracking-[-0.06em] sm:text-5xl">
-            What ships with AgencyX
+          <p className="eyebrow">Our Services</p>
+          <h2 className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+            Everything you need to{" "}
+            <span className="gradient-text">launch fast</span>
           </h2>
-          <p className="mt-5 text-lg leading-8 text-muted">
-            The MVP is intentionally focused: the pieces a recruiter or client can inspect quickly, wired with the
-            same boundaries a real deployment needs.
+          <p className="mt-6 text-lg leading-relaxed text-[var(--text-secondary)]">
+            From strategy to deployment, we handle every aspect of your digital presence so you can
+            focus on growing your business.
           </p>
         </FadeIn>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-16 grid gap-4 sm:grid-cols-2">
           {features.map((feature, index) => {
             const Icon = feature.icon;
-
             return (
-              <FadeIn key={feature.title} delay={index * 0.06}>
-                <Card interactive className="h-full">
-                  <div className="mb-7 grid h-12 w-12 place-items-center rounded-2xl bg-brand-soft text-brand-ink dark:text-brand">
-                    <Icon aria-hidden="true" size={24} />
+              <FadeIn key={feature.title} delay={index * 0.08}>
+                <div className="glass-card group h-full rounded-2xl p-8 transition-all duration-300 hover:border-[var(--border-glow)]">
+                  <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--accent)]/20 to-[var(--accent-secondary)]/20 text-[var(--accent)]">
+                    <Icon size={24} />
                   </div>
-                  <h3 className="text-xl font-black tracking-[-0.03em]">{feature.title}</h3>
-                  <p className="mt-3 leading-7 text-muted">{feature.description}</p>
-                </Card>
+                  <h3 className="text-xl font-bold tracking-tight">{feature.title}</h3>
+                  <p className="mt-3 leading-relaxed text-[var(--text-secondary)]">{feature.description}</p>
+                </div>
               </FadeIn>
             );
           })}

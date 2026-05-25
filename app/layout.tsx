@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const bodyFont = Manrope({
+const bodyFont = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
-const displayFont = Fraunces({
+const displayFont = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -21,23 +21,24 @@ const themeScript = `
     var saved = window.localStorage.getItem(storageKey);
     var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     var theme = saved || (prefersDark ? "dark" : "light");
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    }
   } catch (_) {}
 })();
 `;
 
 export const metadata: Metadata = {
   title: {
-    default: "AgencyX — Launch-ready SaaS landing page",
+    default: "AgencyX — Premium Digital Agency",
     template: "%s | AgencyX",
   },
   description:
-    "A modern SaaS and agency landing page with animated sections, pricing, dark mode, and a database-backed waitlist.",
+    "A premium digital agency landing page built with Next.js 14, TypeScript, and modern design principles.",
   metadataBase: new URL("https://agencyx.example"),
   openGraph: {
-    title: "AgencyX — Launch-ready SaaS landing page",
-    description:
-      "Animated Next.js landing page for teams that need a sharper launch surface.",
+    title: "AgencyX — Premium Digital Agency",
+    description: "Transforming visions into conversion-focused digital experiences.",
     type: "website",
   },
 };
@@ -47,12 +48,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${bodyFont.variable} ${displayFont.variable}`}
+      className={`${bodyFont.variable} ${displayFont.variable} dark`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>{children}</body>
+      <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+        {children}
+      </body>
     </html>
   );
 }

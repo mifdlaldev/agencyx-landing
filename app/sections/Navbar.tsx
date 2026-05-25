@@ -1,16 +1,16 @@
 "use client";
 
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, Sparkles, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { buttonStyles } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "#features", label: "Services" },
-  { href: "#stats", label: "Results" },
+  { href: "#features", label: "Platform" },
+  { href: "#stats", label: "Proof" },
   { href: "#pricing", label: "Pricing" },
-  { href: "#testimonials", label: "Testimonials" },
+  { href: "#testimonials", label: "Customers" },
   { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Contact" },
 ] as const;
 
 export function Navbar() {
@@ -18,26 +18,32 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 18);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-[var(--border-subtle)]"
-          : "bg-transparent",
-      )}
-    >
-      <nav aria-label="Primary" className="section-shell flex h-16 items-center justify-between">
-        <a href="#top" className="flex items-center gap-2.5 font-bold">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[var(--accent)] to-[var(--accent-secondary)] text-sm font-black text-[var(--bg-primary)]">
-            A
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
+      <nav
+        aria-label="Primary"
+        className={cn(
+          "section-shell flex h-16 items-center justify-between rounded-full border px-4 transition duration-300 sm:px-5",
+          scrolled
+            ? "border-border bg-white/88 shadow-soft backdrop-blur-xl"
+            : "border-transparent bg-white/60 backdrop-blur-md",
+        )}
+      >
+        <a href="#top" onClick={closeMenu} className="flex items-center gap-2.5 font-extrabold tracking-[-0.03em]">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-foreground text-sm text-white shadow-soft">
+            AX
           </span>
-          <span className="text-lg font-bold tracking-tight">AgencyX</span>
+          <span className="hidden sm:inline">AgencyX</span>
         </a>
 
         <div className="hidden items-center gap-1 md:flex">
@@ -45,58 +51,57 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="rounded-lg px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+              className="rounded-full px-4 py-2 text-sm font-bold text-muted-foreground transition hover:bg-muted hover:text-foreground"
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <a
-            href="#contact"
-            className="glow-button rounded-lg px-5 py-2.5 text-sm font-semibold"
-          >
-            Start a project
+        <div className="hidden items-center gap-2 md:flex">
+          <a href="#waitlist" className="pill border-primary/15 bg-primary/5 text-primary">
+            <Sparkles aria-hidden="true" size={14} />
+            AI-ready
+          </a>
+          <a href="#contact" className={buttonStyles({ variant: "primary", size: "sm" })}>
+            Book a build
           </a>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
-          <button
-            type="button"
-            onClick={() => setMenuOpen((o) => !o)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border-subtle)] text-[var(--text-primary)]"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-foreground md:hidden"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? <X aria-hidden="true" size={19} /> : <Menu aria-hidden="true" size={19} />}
+        </button>
       </nav>
 
-      {menuOpen && (
-        <div className="section-shell pb-5 md:hidden">
-          <div className="glass-card flex flex-col gap-1 rounded-2xl p-2">
+      {menuOpen ? (
+        <div className="section-shell pt-2 md:hidden">
+          <div className="rounded-[1.75rem] border border-border bg-white/95 p-2 shadow-soft backdrop-blur-xl">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="rounded-xl px-4 py-3 text-sm font-medium text-[var(--text-secondary)] transition hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]"
+                onClick={closeMenu}
+                className="block rounded-2xl px-4 py-3 text-sm font-bold text-muted-foreground transition hover:bg-muted hover:text-foreground"
               >
                 {link.label}
               </a>
             ))}
             <a
               href="#contact"
-              onClick={() => setMenuOpen(false)}
-              className="glow-button mt-2 rounded-xl px-4 py-3 text-center text-sm font-semibold"
+              onClick={closeMenu}
+              className={buttonStyles({ variant: "primary", className: "mt-2 w-full" })}
             >
-              Start a project
+              Book a build
             </a>
           </div>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }

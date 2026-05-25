@@ -1,6 +1,6 @@
-# AgencyX — Modern SaaS Landing Page
+# AgencyX — AI SaaS Launch Studio Landing Page
 
-A modern, animated SaaS/agency landing page built with Next.js 14, TypeScript, Tailwind CSS, Framer Motion, Prisma, and PostgreSQL. AgencyX is a fictional brand used for portfolio demonstration only.
+A polished AI/SaaS agency landing page built with Next.js 14, TypeScript, Tailwind CSS, Framer Motion, Prisma, and PostgreSQL. The visual direction blends Exa-inspired technical clarity, Runlayer-style dark control-plane sections, and Langbase-style bento product storytelling. AgencyX is a fictional brand used for portfolio demonstration only.
 
 ## Live Demo
 
@@ -15,19 +15,23 @@ Not deployed yet. Add the Vercel URL here after importing the project and config
 - Lucide React
 - Prisma Client
 - PostgreSQL / Vercel Postgres
+- Zod validation
 - Playwright
 - Vercel-ready configuration
 
 ## Features
 
-- Responsive hero with text reveal animation
-- Smooth-scroll navigation with mobile menu
-- Feature cards with Lucide icons
+- Exa-inspired light technical SaaS hero with AI command-center visual
+- Plus Jakarta Sans typography for readable, bold interface text
+- Smooth-scroll navigation with responsive mobile menu
+- Langbase-style bento feature cards
+- Runlayer-inspired dark trust/control-plane narrative section
 - Pricing table with monthly/yearly billing toggle
-- Accessible dark/light mode toggle with localStorage persistence
-- Waitlist form with client-side validation
-- Next.js route handler for waitlist submissions
-- Prisma-backed persistence boundary with duplicate-email handling
+- Testimonials carousel with accessible controls
+- FAQ accordion with accessible expanded state
+- Waitlist form with client-side validation and Prisma-backed persistence
+- Contact form with Zod validation and API route
+- Dummy resource/blog cards
 - Reduced-motion-safe scroll reveal animations
 - Fully responsive mobile, tablet, and desktop layout
 

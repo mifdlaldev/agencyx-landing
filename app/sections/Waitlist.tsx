@@ -1,12 +1,12 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, DatabaseZap, Sparkles } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { buttonStyles } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 type Status = "idle" | "error" | "success";
 
 export function Waitlist() {
@@ -16,7 +16,7 @@ export function Waitlist() {
   const [mounted, setMounted] = useState(false);
   const [status, setStatus] = useState<{ type: Status; message: string }>({
     type: "idle",
-    message: "Join 2,000+ founders on the waitlist.",
+    message: "Join the launch list and test the database-backed flow.",
   });
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export function Waitlist() {
     }
 
     setPending(true);
-    setStatus({ type: "idle", message: "Joining the waitlist..." });
+    setStatus({ type: "idle", message: "Syncing your request..." });
 
     try {
       const response = await fetch("/api/waitlist", {
@@ -47,7 +47,7 @@ export function Waitlist() {
         body: JSON.stringify({ name: trimmedName, email: trimmedEmail, plan: "pro" }),
       });
       const payload = (await response.json().catch(() => null)) as { message?: string } | null;
-      const message = payload?.message ?? "Something went wrong. Please try again.";
+      const message = payload?.message ?? "Unable to join the waitlist right now.";
 
       if (!response.ok) {
         setStatus({ type: "error", message });
@@ -58,75 +58,91 @@ export function Waitlist() {
       setEmail("");
       setStatus({ type: "success", message });
     } catch {
-      setStatus({ type: "error", message: "Something went wrong. Please try again." });
+      setStatus({ type: "error", message: "Unable to join the waitlist right now." });
     } finally {
       setPending(false);
     }
   }
 
   return (
-    <section id="waitlist" className="py-20 sm:py-28">
+    <section id="waitlist" className="section-y">
       <div className="section-shell">
-        <div className="glass-card mx-auto max-w-2xl rounded-3xl p-8 sm:p-12">
-          <FadeIn className="text-center">
-            <p className="eyebrow">Early Access</p>
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-              Join the waitlist
-            </h2>
-            <p className="mt-4 text-[var(--text-secondary)]">
-              Be the first to know when we open slots for new projects.
-            </p>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <form onSubmit={handleSubmit} className="mt-8 space-y-4" noValidate>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <input
-                  id="wl-name"
-                  name="name"
-                  autoComplete="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  disabled={pending || !mounted}
-                  className="h-12 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
-                  placeholder="Your name"
-                />
-                <input
-                  id="wl-email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={pending || !mounted}
-                  className="h-12 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
-                  placeholder="you@company.com"
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={pending || !mounted}
-                className="glow-button flex h-12 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold disabled:opacity-60"
-              >
-                {pending ? "Joining..." : "Join waitlist"}
-                <ArrowRight size={16} />
-              </button>
-              <p
-                role="status"
-                aria-live="polite"
-                className={cn(
-                  "rounded-xl px-4 py-3 text-center text-sm",
-                  status.type === "success"
-                    ? "bg-[var(--success)]/10 text-[var(--success)]"
-                    : status.type === "error"
-                      ? "bg-[var(--error)]/10 text-[var(--error)]"
-                      : "text-[var(--text-muted)]",
-                )}
-              >
-                {status.message}
+        <div className="dark-panel dark-grid overflow-hidden p-6 sm:p-10 lg:p-12">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <FadeIn>
+              <p className="pill w-fit border-white/10 bg-white/10 text-white">
+                <Sparkles aria-hidden="true" size={14} />
+                Live API boundary
               </p>
-            </form>
-          </FadeIn>
+              <h2 className="mt-5 text-4xl font-extrabold leading-[1.02] tracking-[-0.06em] sm:text-5xl lg:text-6xl">
+                Join the waitlist with a real persistence layer.
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-white/65">
+                The form validates in the browser, posts to a Next.js route handler, and persists through Prisma when the database URL is configured.
+              </p>
+              <div className="mt-8 flex items-start gap-4 rounded-3xl border border-white/10 bg-white/[0.06] p-5">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white text-foreground">
+                  <DatabaseZap aria-hidden="true" size={20} />
+                </span>
+                <div>
+                  <p className="font-extrabold">Portfolio signal</p>
+                  <p className="mt-1 text-sm leading-6 text-white/55">Shows HR and clients that the page is not only pretty: it has real backend boundaries and tests.</p>
+                </div>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.08}>
+              <form onSubmit={handleSubmit} className="rounded-[2rem] border border-white/10 bg-white p-4 text-foreground shadow-soft sm:p-6" noValidate>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="block">
+                    <span className="text-sm font-extrabold">Name</span>
+                    <input
+                      value={name}
+                      onChange={(event) => setName(event.target.value)}
+                      disabled={pending || !mounted}
+                      placeholder="Ari Builder"
+                      autoComplete="name"
+                      className="mt-2 h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold outline-none transition placeholder:text-muted-foreground focus:border-primary"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="text-sm font-extrabold">Email</span>
+                    <input
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      disabled={pending || !mounted}
+                      placeholder="ari@company.com"
+                      type="email"
+                      autoComplete="email"
+                      className="mt-2 h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold outline-none transition placeholder:text-muted-foreground focus:border-primary"
+                    />
+                  </label>
+                </div>
+                <button
+                  type="submit"
+                  disabled={pending || !mounted}
+                  className={buttonStyles({ variant: "primary", className: "mt-4 w-full" })}
+                >
+                  {pending ? "Syncing..." : "Join waitlist"}
+                  <ArrowRight aria-hidden="true" size={18} />
+                </button>
+                <p
+                  role="status"
+                  aria-live="polite"
+                  className={cn(
+                    "mt-4 rounded-2xl px-4 py-3 text-sm font-bold",
+                    status.type === "success"
+                      ? "bg-success/10 text-success"
+                      : status.type === "error"
+                        ? "bg-error/10 text-error"
+                        : "bg-muted text-muted-foreground",
+                  )}
+                >
+                  {status.message}
+                </p>
+              </form>
+            </FadeIn>
+          </div>
         </div>
       </div>
     </section>

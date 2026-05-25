@@ -1,12 +1,30 @@
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Twitter } from "lucide-react";
+import { buttonStyles } from "@/components/ui/Button";
 
-const links = [
-  { href: "#features", label: "Services" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#blog", label: "Blog" },
-  { href: "#contact", label: "Contact" },
+const columns = [
+  {
+    title: "Product",
+    links: [
+      { href: "#features", label: "Platform" },
+      { href: "#stats", label: "Proof" },
+      { href: "#pricing", label: "Pricing" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { href: "#testimonials", label: "Customers" },
+      { href: "#blog", label: "Resources" },
+      { href: "#faq", label: "FAQ" },
+    ],
+  },
+  {
+    title: "Convert",
+    links: [
+      { href: "#waitlist", label: "Waitlist" },
+      { href: "#contact", label: "Contact" },
+    ],
+  },
 ] as const;
 
 const socials = [
@@ -17,47 +35,69 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--border-subtle)] py-12">
-      <div className="section-shell">
-        <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
-          <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[var(--accent)] to-[var(--accent-secondary)] text-sm font-black text-[var(--bg-primary)]">
-              A
-            </span>
-            <span className="text-lg font-bold tracking-tight">AgencyX</span>
-          </div>
-
-          <nav className="flex flex-wrap items-center justify-center gap-6">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-[var(--text-muted)] transition hover:text-[var(--text-primary)]"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            {socials.map((social) => {
-              const Icon = social.icon;
-              return (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-subtle)] text-[var(--text-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
-                >
-                  <Icon size={16} />
-                </a>
-              );
-            })}
+    <footer className="border-t border-border bg-white">
+      <div className="section-shell py-8">
+        <div className="dark-panel dark-grid p-6 sm:p-10">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-cyan-200/80">Ready to ship better?</p>
+              <h2 className="mt-3 max-w-2xl text-4xl font-extrabold tracking-[-0.06em] sm:text-5xl">
+                Turn your portfolio into a premium product signal.
+              </h2>
+            </div>
+            <a href="#contact" className={buttonStyles({ variant: "secondary", size: "lg", className: "shrink-0" })}>
+              Book a build
+              <ArrowRight aria-hidden="true" size={18} />
+            </a>
           </div>
         </div>
 
-        <div className="mt-10 text-center text-sm text-[var(--text-muted)]">
-          © 2026 AgencyX. Built for demonstration.
+        <div className="grid gap-10 py-12 lg:grid-cols-[1.1fr_1fr]">
+          <div>
+            <a href="#top" className="inline-flex items-center gap-2.5 font-extrabold tracking-[-0.03em]">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-foreground text-sm text-white">AX</span>
+              <span className="text-xl">AgencyX</span>
+            </a>
+            <p className="mt-4 max-w-md leading-7 text-muted-foreground">
+              A fictional but production-grade AI SaaS agency landing page built to demonstrate design taste, frontend craft, and backend boundaries.
+            </p>
+            <div className="mt-6 flex items-center gap-2">
+              {socials.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    aria-label={social.label}
+                    className="grid h-10 w-10 place-items-center rounded-full border border-border bg-white text-muted-foreground transition hover:border-primary/30 hover:text-primary"
+                  >
+                    <Icon aria-hidden="true" size={17} />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="grid gap-8 sm:grid-cols-3">
+            {columns.map((column) => (
+              <div key={column.title}>
+                <h3 className="text-sm font-extrabold uppercase tracking-[0.18em] text-foreground">{column.title}</h3>
+                <ul className="mt-4 space-y-3">
+                  {column.links.map((link) => (
+                    <li key={link.href}>
+                      <a href={link.href} className="text-sm font-bold text-muted-foreground transition hover:text-primary">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="border-t border-border pt-6 text-sm font-bold text-muted-foreground">
+          © 2026 AgencyX. Dummy brand, real implementation.
         </div>
       </div>
     </footer>

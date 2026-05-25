@@ -10,38 +10,42 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: {
-          primary: "var(--bg-primary)",
-          secondary: "var(--bg-secondary)",
-          card: "var(--bg-card)",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
-        text: {
-          primary: "var(--text-primary)",
-          secondary: "var(--text-secondary)",
-          muted: "var(--text-muted)",
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        accent: {
-          DEFAULT: "var(--accent)",
-          glow: "var(--accent-glow)",
-          secondary: "var(--accent-secondary)",
+        border: "hsl(var(--border))",
+        ring: "hsl(var(--ring))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        border: {
-          subtle: "var(--border-subtle)",
-          glow: "var(--border-glow)",
+        secondary: "hsl(var(--secondary))",
+        accent: "hsl(var(--accent))",
+        lime: "hsl(var(--lime))",
+        dark: {
+          DEFAULT: "hsl(var(--dark))",
+          soft: "hsl(var(--dark-soft))",
         },
+        success: "hsl(var(--success))",
+        error: "hsl(var(--error))",
       },
       fontFamily: {
-        sans: ["var(--font-body)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "Georgia", "serif"],
+        sans: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      boxShadow: {
+        soft: "0 24px 80px -50px rgba(15, 23, 42, 0.35)",
+        blue: "0 28px 100px -55px rgba(30, 64, 237, 0.55)",
       },
       animation: {
-        aurora: "aurora 20s ease-in-out infinite",
-        float: "float 6s ease-in-out infinite",
-        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "float-slow": "float-slow 7s ease-in-out infinite",
+        "beam-dash": "beam-dash 5s linear infinite",
       },
     },
   },

@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --canvas: 44 45% 96%;
+  --surface: 42 36% 91%;
+  --ink: 220 34% 11%;
+  --muted: 218 13% 39%;
+  --line: 220 20% 82%;
+  --brand: 172 61% 34%;
+  --brand-ink: 168 70% 12%;
+  --brand-soft: 170 44% 87%;
+  --ember: 19 91% 56%;
+}
+
+.dark {
+  color-scheme: dark;
+  --canvas: 220 37% 7%;
+  --surface: 221 31% 12%;
+  --ink: 42 44% 94%;
+  --muted: 217 16% 70%;
+  --line: 219 20% 24%;
+  --brand: 170 70% 45%;
+  --brand-ink: 168 76% 10%;
+  --brand-soft: 171 34% 18%;
+  --ember: 24 94% 62%;
+}
+
+@layer base {
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-canvas text-ink antialiased;
+    background:
+      radial-gradient(circle at 16% 8%, hsl(var(--brand) / 0.18), transparent 28rem),
+      radial-gradient(circle at 88% 12%, hsl(var(--ember) / 0.16), transparent 24rem),
+      linear-gradient(135deg, hsl(var(--canvas)), hsl(var(--surface)));
+  }
+
+  ::selection {
+    @apply bg-brand text-white;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-canvas;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-sm font-bold uppercase tracking-[0.24em] text-brand;
+  }
+
+  .glass-panel {
+    @apply border border-white/[0.35] bg-white/[0.62] shadow-lift backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.06];
+  }
+
+  .mesh-bg {
+    background-image:
+      linear-gradient(120deg, hsl(var(--brand) / 0.12), transparent 36%),
+      radial-gradient(circle at 82% 22%, hsl(var(--ember) / 0.16), transparent 28rem),
+      radial-gradient(circle at 18% 92%, hsl(var(--brand) / 0.16), transparent 32rem);
+  }
+
+  .text-reveal {
+    animation: reveal-text 1s steps(32, end) both;
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .launch-grid {
+    background-image:
+      linear-gradient(hsl(var(--ink) / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--ink) / 0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+}
+@keyframes reveal-text {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

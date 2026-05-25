@@ -61,27 +61,55 @@ test.describe("AgencyX landing page", () => {
   test("validates waitlist form input and surfaces API storage status", async ({ page }) => {
     await page.goto("/#waitlist");
 
-    await page.getByLabel("Work email").fill("not-an-email");
-    await page.getByRole("button", { name: "Request early access" }).click();
-    await expect(page.getByRole("status")).toContainText("Enter your name.");
+    const waitlistSection = page.locator("#waitlist");
 
-    await page.getByLabel("Full name").fill("Ari Builder");
-    await page.getByRole("button", { name: "Request early access" }).click();
-    await expect(page.getByRole("status")).toContainText("Enter a valid work email.");
+    await waitlistSection.getByLabel("Work email").fill("not-an-email");
+    await waitlistSection.getByRole("button", { name: "Request early access" }).click();
+    await expect(waitlistSection.getByRole("status")).toContainText("Enter your name.");
+
+    await waitlistSection.getByLabel("Full name").fill("Ari Builder");
+    await waitlistSection.getByRole("button", { name: "Request early access" }).click();
+    await expect(waitlistSection.getByRole("status")).toContainText("Enter a valid work email.");
 
     const uniqueEmail = `ari-${Date.now()}@example.com`;
-    await page.getByLabel("Work email").fill(uniqueEmail);
-    await page.getByRole("button", { name: "Request early access" }).click();
+    await waitlistSection.getByLabel("Work email").fill(uniqueEmail);
+    await waitlistSection.getByRole("button", { name: "Request early access" }).click();
 
-    await expect(page.getByRole("status")).toContainText(
+    await expect(waitlistSection.getByRole("status")).toContainText(
       /You're on the AgencyX waitlist.|Waitlist storage is not configured\./,
     );
-    const statusText = await page.getByRole("status").textContent();
+    const statusText = await waitlistSection.getByRole("status").textContent();
 
     if (statusText?.includes("You're on the AgencyX waitlist.")) {
-      await expect(page.getByLabel("Full name")).toHaveValue("");
-      await expect(page.getByLabel("Work email")).toHaveValue("");
+      await expect(waitlistSection.getByLabel("Full name")).toHaveValue("");
+      await expect(waitlistSection.getByLabel("Work email")).toHaveValue("");
     }
+  });
+
+  test("expands and collapses FAQ items", async ({ page }) => {
+    await page.goto("/#faq");
+
+    const faqSection = page.locator("#faq");
+    const firstQuestion = faqSection.getByRole("button", { name: "What is AgencyX?" });
+    await firstQuestion.click();
+    await expect(faqSection.getByText("built as a portfolio demonstration.")).toBeVisible();
+
+    await firstQuestion.click();
+    await expect(firstQuestion).toHaveAttribute("aria-expanded", "false");
+  });
+
+  test("validates contact form with Zod before submission", async ({ page }) => {
+    await page.goto("/#contact");
+
+    const contactSection = page.locator("#contact");
+
+    await contactSection.getByLabel("Work email").fill("not-an-email");
+    await contactSection.getByRole("button", { name: "Send message" }).click();
+    await expect(contactSection.getByRole("status")).toContainText("Please fix the errors above.");
+
+    await contactSection.getByLabel("Full name").fill("Ari Builder");
+    await contactSection.getByRole("button", { name: "Send message" }).click();
+    await expect(contactSection.getByText("Enter a valid work email.")).toBeVisible();
   });
 
   test("waitlist API validates input and handles configured storage", async ({ request }) => {
@@ -111,5 +139,48 @@ test.describe("AgencyX landing page", () => {
 
     expect(duplicateResponse.status()).toBe(409);
     await expect(duplicateResponse.json()).resolves.toEqual({ message: "This email is already on the waitlist." });
+  });
+
+  test("renders stats, testimonials, FAQ, blog, and contact sections", async ({ page }) => {
+    await page.goto("/");
+
+    await expect(page.getByRole("heading", { name: "Built for speed, trusted by teams" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What teams say about AgencyX" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Questions that come up often" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Notes from the launch floor" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Get in touch" })).toBeVisible();
+  });
+
+  test("navigates testimonial carousel", async ({ page }) => {
+    await page.goto("/#testimonials");
+
+    await expect(page.getByText("Rina Santoso")).toBeVisible();
+    await page.getByRole("button", { name: "Next testimonial" }).click();
+    await expect(page.getByText("Dani Wijaya")).toBeVisible();
+    await page.getByRole("button", { name: "Previous testimonial" }).click();
+    await expect(page.getByText("Rina Santoso")).toBeVisible();
+  });
+
+
+
+  test("contact API validates input with Zod", async ({ request }) => {
+    const invalidResponse = await request.post("/api/contact", {
+      data: { name: "", email: "bad", subject: "", message: "hi" },
+    });
+
+    expect(invalidResponse.status()).toBe(400);
+    await expect(invalidResponse.json()).resolves.toEqual({ message: "Enter your name." });
+
+    const validResponse = await request.post("/api/contact", {
+      data: {
+        name: "Ari Builder",
+        email: "ari@example.com",
+        subject: "Hello",
+        message: "This is a test message with enough length.",
+      },
+    });
+
+    expect(validResponse.status()).toBe(200);
+    await expect(validResponse.json()).resolves.toEqual({ message: "Message sent successfully." });
   });
 });

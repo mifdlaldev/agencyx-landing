@@ -7,7 +7,10 @@ import { buttonStyles } from "@/components/ui/Button";
 const navLinks = [
   { href: "#features", label: "Features" },
   { href: "#pricing", label: "Pricing" },
+  { href: "#testimonials", label: "Testimonials" },
+  { href: "#faq", label: "FAQ" },
   { href: "#waitlist", label: "Join waitlist" },
+  { href: "#blog", label: "Blog" },
   { href: "#contact", label: "Contact" },
 ] as const;
 

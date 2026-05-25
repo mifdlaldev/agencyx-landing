@@ -1,101 +1,74 @@
-import { ArrowRight, Code2, Globe2, Palette, Sparkles } from "lucide-react";
-import { AnimatedBeam } from "@/components/effects/AnimatedBeam";
-import { DotGrid } from "@/components/effects/DotGrid";
-import { ShinyText } from "@/components/effects/ShinyText";
+import { ArrowUpRight, Star } from "lucide-react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { buttonStyles } from "@/components/ui/Button";
 
 const trustedBy = ["Shopify", "Stripe", "Notion", "Figma", "Vercel", "Linear"] as const;
-const insightCards = [
-  { icon: Palette, label: "Design", value: "UI/UX systems" },
-  { icon: Code2, label: "Develop", value: "Full-stack apps" },
-  { icon: Globe2, label: "Deploy", value: "Production ready" },
+
+const avatars = [
+  { initials: "SM", bg: "bg-rose-400" },
+  { initials: "JC", bg: "bg-amber-400" },
+  { initials: "ER", bg: "bg-emerald-400" },
+  { initials: "AK", bg: "bg-sky-400" },
 ] as const;
 
 export function Hero() {
   return (
-    <section id="top" className="relative isolate overflow-hidden pb-20 pt-32 sm:pt-36 lg:pb-28">
-      <DotGrid className="opacity-55" />
-      <div className="absolute inset-x-0 top-0 -z-10 h-[42rem] bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/0.18),transparent_34rem)]" />
-      <div className="section-shell relative z-10 grid items-center gap-12 lg:grid-cols-[0.96fr_1.04fr]">
+    <section id="top" className="relative isolate overflow-hidden pb-16 pt-32 sm:pt-36 lg:pb-20">
+      <div className="absolute inset-x-0 top-0 -z-10 h-full bg-[radial-gradient(ellipse_at_50%_0%,hsl(var(--primary)/0.12),transparent_50%),radial-gradient(ellipse_at_80%_20%,hsl(var(--secondary)/0.08),transparent_40%)]" />
+
+      <div className="section-shell relative z-10 flex flex-col items-center text-center">
         <FadeIn>
-          <div className="pill mb-7 border-primary/20 bg-white/90 text-primary">
-            <Sparkles aria-hidden="true" size={14} />
-            <ShinyText>Full-service development agency</ShinyText>
-          </div>
           <h1 className="heading-xl max-w-4xl">
             We build websites and apps that turn visitors into customers.
           </h1>
-          <p className="body-lg mt-7 max-w-2xl">
+          <p className="body-lg mx-auto mt-6 max-w-2xl">
             AgencyX is a digital development studio focused on custom websites, web applications,
             and UI/UX design for teams who need fast delivery without sacrificing quality.
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="#contact" className={buttonStyles({ variant: "primary", size: "lg" })}>
-              Start a project
-              <ArrowRight aria-hidden="true" size={18} />
+
+          <div className="mt-10 flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
+            <a href="#contact" className={buttonStyles({ variant: "dark", size: "lg" })}>
+              Get Started
+              <ArrowUpRight aria-hidden="true" size={18} />
             </a>
-            <a href="#features" className={buttonStyles({ variant: "secondary", size: "lg" })}>
-              Our services
-            </a>
-          </div>
-          <div className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm font-extrabold text-muted-foreground">
-            {trustedBy.map((brand) => (
-              <span key={brand}>{brand}</span>
-            ))}
+
+            <div className="flex items-center gap-4">
+              <div className="flex -space-x-2.5">
+                {avatars.map((avatar, i) => (
+                  <span
+                    key={i}
+                    className={`grid h-9 w-9 place-items-center rounded-full border-2 border-white text-xs font-extrabold text-white ${avatar.bg}`}
+                  >
+                    {avatar.initials}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-col items-start">
+                <div className="flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} aria-hidden="true" size={14} className="fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-xs font-bold text-muted-foreground">Trusted by 1000+ clients</p>
+              </div>
+            </div>
           </div>
         </FadeIn>
 
-        <FadeIn delay={0.12} className="relative">
-          <AnimatedBeam className="-left-6 top-8" />
-          <AnimatedBeam className="bottom-10 right-0 rotate-180" variant="violet" />
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-border bg-white p-3 shadow-[0_40px_140px_-70px_rgba(30,64,237,0.55)]">
-            <div className="rounded-[2rem] border border-border bg-[linear-gradient(180deg,#fbfbfa,#f4f2ee)] p-4 sm:p-6">
-              <div className="flex items-center justify-between gap-4 border-b border-border pb-4">
-                <div className="flex items-center gap-2">
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-primary text-white">
-                    <Globe2 aria-hidden="true" size={16} />
-                  </span>
-                  <div>
-                    <p className="text-sm font-extrabold">AgencyX Dashboard</p>
-                    <p className="text-xs font-semibold text-muted-foreground">Project tracking live</p>
-                  </div>
-                </div>
-                <span className="rounded-full bg-lime/40 px-3 py-1 text-xs font-extrabold text-foreground">Active</span>
-              </div>
-
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                {insightCards.map((card) => {
-                  const Icon = card.icon;
-                  return (
-                    <div key={card.label} className="rounded-2xl border border-border bg-white p-4 shadow-sm">
-                      <Icon aria-hidden="true" size={18} className="text-primary" />
-                      <p className="mt-4 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">{card.label}</p>
-                      <p className="mt-1 text-sm font-extrabold">{card.value}</p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="mt-4 rounded-3xl bg-foreground p-4 text-white dark-grid">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/55">Latest project</p>
-                  <p className="mt-2 text-lg font-extrabold tracking-[-0.04em]">
-                    E-commerce platform with real-time inventory
-                  </p>
-                </div>
-                <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                    <p className="text-3xl font-extrabold">92%</p>
-                    <p className="text-sm text-white/60">performance score</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                    <p className="text-3xl font-extrabold">2wk</p>
-                    <p className="text-sm text-white/60">delivery cycle</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <FadeIn delay={0.1} className="mt-20 w-full">
+          <div className="flex items-center gap-4">
+            <div className="h-px flex-1 bg-border" />
+            <p className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+              Loved by 1000+ big and small brands around the world
+            </p>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+            {trustedBy.map((brand) => (
+              <span key={brand} className="text-lg font-extrabold text-muted-foreground/60">
+                {brand}
+              </span>
+            ))}
           </div>
         </FadeIn>
       </div>

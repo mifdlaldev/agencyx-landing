@@ -33,10 +33,10 @@ export function Navbar() {
       <nav
         aria-label="Primary"
         className={cn(
-          "section-shell flex h-16 items-center justify-between rounded-full border px-4 transition duration-300 sm:px-5",
+          "section-shell flex h-16 items-center justify-between rounded-full px-4 transition duration-300 sm:px-5",
           scrolled
-            ? "border-border bg-white/88 shadow-soft backdrop-blur-xl"
-            : "border-transparent bg-white/60 backdrop-blur-md",
+            ? "bg-white/95 shadow-soft backdrop-blur-xl"
+            : "bg-white/70 backdrop-blur-md",
         )}
       >
         <a href="#top" onClick={closeMenu} className="flex items-center gap-2.5 font-extrabold tracking-[-0.03em]">
@@ -71,7 +71,7 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-foreground md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-foreground md:hidden"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
         >
@@ -81,7 +81,7 @@ export function Navbar() {
 
       {menuOpen ? (
         <div className="section-shell pt-2 md:hidden">
-          <div className="rounded-[1.75rem] border border-border bg-white/95 p-2 shadow-soft backdrop-blur-xl">
+          <div className="rounded-[1.75rem] bg-white/95 p-2 shadow-soft backdrop-blur-xl">
             {navLinks.map((link) => (
               <a
                 key={link.href}

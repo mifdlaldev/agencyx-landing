@@ -16,7 +16,7 @@ export function Waitlist() {
   const [mounted, setMounted] = useState(false);
   const [status, setStatus] = useState<{ type: Status; message: string }>({
     type: "idle",
-    message: "Join the launch list and test the database-backed flow.",
+    message: "Tell us about your project and we will get back to you within 24 hours.",
   });
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export function Waitlist() {
     }
 
     setPending(true);
-    setStatus({ type: "idle", message: "Syncing your request..." });
+    setStatus({ type: "idle", message: "Submitting your request..." });
 
     try {
       const response = await fetch("/api/waitlist", {
@@ -47,7 +47,7 @@ export function Waitlist() {
         body: JSON.stringify({ name: trimmedName, email: trimmedEmail, plan: "pro" }),
       });
       const payload = (await response.json().catch(() => null)) as { message?: string } | null;
-      const message = payload?.message ?? "Unable to join the waitlist right now.";
+      const message = payload?.message ?? "Unable to submit right now.";
 
       if (!response.ok) {
         setStatus({ type: "error", message });
@@ -58,7 +58,7 @@ export function Waitlist() {
       setEmail("");
       setStatus({ type: "success", message });
     } catch {
-      setStatus({ type: "error", message: "Unable to join the waitlist right now." });
+      setStatus({ type: "error", message: "Unable to submit right now." });
     } finally {
       setPending(false);
     }
@@ -72,21 +72,22 @@ export function Waitlist() {
             <FadeIn>
               <p className="pill w-fit border-white/10 bg-white/10 text-white">
                 <Sparkles aria-hidden="true" size={14} />
-                Live API boundary
+                Start your project
               </p>
               <h2 className="mt-5 text-4xl font-extrabold leading-[1.02] tracking-[-0.06em] sm:text-5xl lg:text-6xl">
-                Join the waitlist with a real persistence layer.
+                Ready to build something great?
               </h2>
               <p className="mt-5 text-lg leading-8 text-white/65">
-                The form validates in the browser, posts to a Next.js route handler, and persists through Prisma when the database URL is configured.
+                Share your project details and we will respond with a clear timeline,
+                scope, and next steps within one business day.
               </p>
               <div className="mt-8 flex items-start gap-4 rounded-3xl border border-white/10 bg-white/[0.06] p-5">
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white text-foreground">
                   <DatabaseZap aria-hidden="true" size={20} />
                 </span>
                 <div>
-                  <p className="font-extrabold">Portfolio signal</p>
-                  <p className="mt-1 text-sm leading-6 text-white/55">Shows HR and clients that the page is not only pretty: it has real backend boundaries and tests.</p>
+                  <p className="font-extrabold">Real project tracking</p>
+                  <p className="mt-1 text-sm leading-6 text-white/55">Every inquiry is logged and tracked. You will never wonder where your project stands.</p>
                 </div>
               </div>
             </FadeIn>
@@ -100,7 +101,7 @@ export function Waitlist() {
                       value={name}
                       onChange={(event) => setName(event.target.value)}
                       disabled={pending || !mounted}
-                      placeholder="Ari Builder"
+                      placeholder="Your name"
                       autoComplete="name"
                       className="mt-2 h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold outline-none transition placeholder:text-muted-foreground focus:border-primary"
                     />
@@ -111,7 +112,7 @@ export function Waitlist() {
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
                       disabled={pending || !mounted}
-                      placeholder="ari@company.com"
+                      placeholder="you@company.com"
                       type="email"
                       autoComplete="email"
                       className="mt-2 h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold outline-none transition placeholder:text-muted-foreground focus:border-primary"
@@ -123,7 +124,7 @@ export function Waitlist() {
                   disabled={pending || !mounted}
                   className={buttonStyles({ variant: "primary", className: "mt-4 w-full" })}
                 >
-                  {pending ? "Syncing..." : "Join waitlist"}
+                  {pending ? "Submitting..." : "Get a quote"}
                   <ArrowRight aria-hidden="true" size={18} />
                 </button>
                 <p

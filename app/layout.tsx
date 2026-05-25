@@ -11,15 +11,15 @@ const bodyFont = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "AgencyX — AI SaaS Launch Studio",
+    default: "AgencyX — Digital Development Studio",
     template: "%s | AgencyX",
   },
   description:
-    "A modern AI SaaS agency landing page blending technical clarity, bento product storytelling, and conversion-ready forms.",
+    "A digital development studio building custom websites, web applications, and UI/UX design for teams that value speed and quality.",
   metadataBase: new URL("https://agencyx.example"),
   openGraph: {
-    title: "AgencyX — AI SaaS Launch Studio",
-    description: "Technical landing pages, AI workflow visuals, and conversion systems for ambitious teams.",
+    title: "AgencyX — Digital Development Studio",
+    description: "Custom websites, web apps, and design systems built for teams who ship fast.",
     type: "website",
   },
 };

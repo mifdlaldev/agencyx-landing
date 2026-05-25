@@ -1,15 +1,15 @@
-import { ArrowRight, DatabaseZap, Globe2, Search, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Code2, Globe2, Palette, Sparkles } from "lucide-react";
 import { AnimatedBeam } from "@/components/effects/AnimatedBeam";
 import { DotGrid } from "@/components/effects/DotGrid";
 import { ShinyText } from "@/components/effects/ShinyText";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { buttonStyles } from "@/components/ui/Button";
 
-const trustedBy = ["Vercel", "Linear", "Cursor", "Supabase", "Raycast", "LangChain"] as const;
+const trustedBy = ["Shopify", "Stripe", "Notion", "Figma", "Vercel", "Linear"] as const;
 const insightCards = [
-  { icon: Search, label: "Research", value: "4.8k signals" },
-  { icon: ShieldCheck, label: "Governance", value: "policy-ready" },
-  { icon: DatabaseZap, label: "Waitlist", value: "Prisma sync" },
+  { icon: Palette, label: "Design", value: "UI/UX systems" },
+  { icon: Code2, label: "Develop", value: "Full-stack apps" },
+  { icon: Globe2, label: "Deploy", value: "Production ready" },
 ] as const;
 
 export function Hero() {
@@ -21,14 +21,14 @@ export function Hero() {
         <FadeIn>
           <div className="pill mb-7 border-primary/20 bg-white/90 text-primary">
             <Sparkles aria-hidden="true" size={14} />
-            <ShinyText>Inspired by Exa, Runlayer, and Langbase</ShinyText>
+            <ShinyText>Full-service development agency</ShinyText>
           </div>
           <h1 className="heading-xl max-w-4xl">
-            Build AI SaaS websites that feel like a product, not a template.
+            We build websites and apps that turn visitors into customers.
           </h1>
           <p className="body-lg mt-7 max-w-2xl">
-            AgencyX designs high-signal landing pages for founders and teams who need clarity, proof,
-            conversion, and a technical brand system that recruiters and clients can trust.
+            AgencyX is a digital development studio focused on custom websites, web applications,
+            and UI/UX design for teams who need fast delivery without sacrificing quality.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a href="#contact" className={buttonStyles({ variant: "primary", size: "lg" })}>
@@ -36,7 +36,7 @@ export function Hero() {
               <ArrowRight aria-hidden="true" size={18} />
             </a>
             <a href="#features" className={buttonStyles({ variant: "secondary", size: "lg" })}>
-              Explore system
+              Our services
             </a>
           </div>
           <div className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm font-extrabold text-muted-foreground">
@@ -57,8 +57,8 @@ export function Hero() {
                     <Globe2 aria-hidden="true" size={16} />
                   </span>
                   <div>
-                    <p className="text-sm font-extrabold">AgencyX Command</p>
-                    <p className="text-xs font-semibold text-muted-foreground">Live launch intelligence</p>
+                    <p className="text-sm font-extrabold">AgencyX Dashboard</p>
+                    <p className="text-xs font-semibold text-muted-foreground">Project tracking live</p>
                   </div>
                 </div>
                 <span className="rounded-full bg-lime/40 px-3 py-1 text-xs font-extrabold text-foreground">Active</span>
@@ -79,19 +79,19 @@ export function Hero() {
 
               <div className="mt-4 rounded-3xl bg-foreground p-4 text-white dark-grid">
                 <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/55">Prompt</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/55">Latest project</p>
                   <p className="mt-2 text-lg font-extrabold tracking-[-0.04em]">
-                    Create a conversion system for a launch-ready AI product.
+                    E-commerce platform with real-time inventory
                   </p>
                 </div>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
                     <p className="text-3xl font-extrabold">92%</p>
-                    <p className="text-sm text-white/60">clarity score</p>
+                    <p className="text-sm text-white/60">performance score</p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                    <p className="text-3xl font-extrabold">12h</p>
-                    <p className="text-sm text-white/60">prototype cycle</p>
+                    <p className="text-3xl font-extrabold">2wk</p>
+                    <p className="text-sm text-white/60">delivery cycle</p>
                   </div>
                 </div>
               </div>

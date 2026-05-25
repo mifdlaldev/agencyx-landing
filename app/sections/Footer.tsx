@@ -3,26 +3,26 @@ import { buttonStyles } from "@/components/ui/Button";
 
 const columns = [
   {
-    title: "Product",
+    title: "Services",
     links: [
-      { href: "#features", label: "Platform" },
-      { href: "#stats", label: "Proof" },
+      { href: "#features", label: "Web development" },
+      { href: "#features", label: "UI/UX design" },
       { href: "#pricing", label: "Pricing" },
     ],
   },
   {
     title: "Company",
     links: [
-      { href: "#testimonials", label: "Customers" },
+      { href: "#testimonials", label: "Clients" },
       { href: "#blog", label: "Resources" },
       { href: "#faq", label: "FAQ" },
     ],
   },
   {
-    title: "Convert",
+    title: "Contact",
     links: [
-      { href: "#waitlist", label: "Waitlist" },
-      { href: "#contact", label: "Contact" },
+      { href: "#waitlist", label: "Get a quote" },
+      { href: "#contact", label: "Send inquiry" },
     ],
   },
 ] as const;
@@ -40,13 +40,13 @@ export function Footer() {
         <div className="dark-panel dark-grid p-6 sm:p-10">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-cyan-200/80">Ready to ship better?</p>
+              <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-cyan-200/80">Ready to build?</p>
               <h2 className="mt-3 max-w-2xl text-4xl font-extrabold tracking-[-0.06em] sm:text-5xl">
-                Turn your portfolio into a premium product signal.
+                Turn your idea into a product people love.
               </h2>
             </div>
             <a href="#contact" className={buttonStyles({ variant: "secondary", size: "lg", className: "shrink-0" })}>
-              Book a build
+              Start a project
               <ArrowRight aria-hidden="true" size={18} />
             </a>
           </div>
@@ -59,7 +59,8 @@ export function Footer() {
               <span className="text-xl">AgencyX</span>
             </a>
             <p className="mt-4 max-w-md leading-7 text-muted-foreground">
-              A fictional but production-grade AI SaaS agency landing page built to demonstrate design taste, frontend craft, and backend boundaries.
+              A digital development studio building custom websites, web applications, and design systems
+              for teams that value speed, quality, and clear communication.
             </p>
             <div className="mt-6 flex items-center gap-2">
               {socials.map((social) => {
@@ -84,7 +85,7 @@ export function Footer() {
                 <h3 className="text-sm font-extrabold uppercase tracking-[0.18em] text-foreground">{column.title}</h3>
                 <ul className="mt-4 space-y-3">
                   {column.links.map((link) => (
-                    <li key={link.href}>
+                    <li key={link.label}>
                       <a href={link.href} className="text-sm font-bold text-muted-foreground transition hover:text-primary">
                         {link.label}
                       </a>
@@ -97,7 +98,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border pt-6 text-sm font-bold text-muted-foreground">
-          © 2026 AgencyX. Dummy brand, real implementation.
+          © 2026 AgencyX. Built with care.
         </div>
       </div>
     </footer>

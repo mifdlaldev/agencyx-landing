@@ -3,20 +3,20 @@ import { FadeIn } from "@/components/motion/FadeIn";
 
 const posts = [
   {
-    title: "What Exa teaches about technical landing pages",
-    excerpt: "Use clean hierarchy, technical motifs, and product-like demos to make a marketing page feel like infrastructure.",
+    title: "How to plan a website that converts",
+    excerpt: "A practical guide to structuring landing pages, calls to action, and user flows that turn visitors into leads.",
     date: "May 25, 2026",
-    tag: "Design notes",
+    tag: "Strategy",
   },
   {
-    title: "Bento grids for explaining complex services",
-    excerpt: "How to turn a broad agency offer into visible systems that clients can understand quickly.",
+    title: "Design systems that scale",
+    excerpt: "Why every growing team needs a design system, and how to build one that stays consistent across pages and products.",
     date: "May 22, 2026",
-    tag: "UX strategy",
+    tag: "Design",
   },
   {
-    title: "Why forms are portfolio features",
-    excerpt: "A beautiful waitlist is stronger when it has validation, API boundaries, database persistence, and tests.",
+    title: "Why performance matters for business",
+    excerpt: "Slow sites lose customers. Here is how we optimize every build for speed, accessibility, and search rankings.",
     date: "May 18, 2026",
     tag: "Engineering",
   },
@@ -29,7 +29,7 @@ export function Blog() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <FadeIn className="max-w-3xl">
             <p className="pill w-fit border-primary/15 bg-primary/5 text-primary">Resources</p>
-            <h2 className="heading-lg mt-5">Notes from the AI launch floor.</h2>
+            <h2 className="heading-lg mt-5">Notes from the studio.</h2>
           </FadeIn>
           <FadeIn delay={0.08}>
             <a href="#blog" className="button-secondary">

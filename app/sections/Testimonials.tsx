@@ -7,19 +7,19 @@ import { cn } from "@/lib/utils";
 
 const testimonials = [
   {
-    quote: "AgencyX made our service look like a real AI product. Recruiters noticed the craft, and prospects finally understood what we sell.",
+    quote: "AgencyX delivered our e-commerce platform in under three weeks. The quality exceeded what we expected, and our conversion rate jumped 40%.",
     name: "Sarah Mitchell",
-    role: "Founder, SignalForge",
+    role: "CEO, BloomRetail",
   },
   {
-    quote: "The page feels like an actual platform demo, not another agency template. The bento sections and forms gave us immediate credibility.",
+    quote: "They rebuilt our company website with a modern design system that actually reflects our brand. Clients now comment on how professional we look.",
     name: "James Chen",
-    role: "Product Lead, Northstar Labs",
+    role: "Founder, Northstar Labs",
   },
   {
-    quote: "Fast, polished, and technical. We used the site as the centerpiece for investor intros and client outreach.",
+    quote: "Fast, reliable, and genuinely care about the outcome. We use the dashboard they built daily, and it has transformed how we manage operations.",
     name: "Elena Rodriguez",
-    role: "Studio Director, LayerWorks",
+    role: "Operations Director, LayerWorks",
   },
 ] as const;
 
@@ -30,8 +30,8 @@ export function Testimonials() {
     <section id="testimonials" className="section-y">
       <div className="section-shell">
         <FadeIn className="max-w-3xl">
-          <p className="pill w-fit border-primary/15 bg-primary/5 text-primary">Customer signal</p>
-          <h2 className="heading-lg mt-5">Loved by founders who need trust fast.</h2>
+          <p className="pill w-fit border-primary/15 bg-primary/5 text-primary">Client stories</p>
+          <h2 className="heading-lg mt-5">What our clients say.</h2>
         </FadeIn>
 
         <FadeIn delay={0.08} className="mt-12">

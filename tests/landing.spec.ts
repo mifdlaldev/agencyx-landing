@@ -4,17 +4,17 @@ test.describe("AgencyX landing page", () => {
   test("renders hero sections and scrolls from the navbar", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: /Build AI SaaS websites/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /We build websites and apps/i })).toBeVisible();
     const primaryNav = page.getByRole("navigation", { name: "Primary" });
     await expect(primaryNav).toBeVisible();
 
     await primaryNav.getByRole("link", { name: "Platform" }).click();
     await expect(page).toHaveURL(/#features$/);
-    await expect(page.getByRole("heading", { name: /Everything you need to look credible/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Everything you need to launch and grow/i })).toBeVisible();
 
     await primaryNav.getByRole("link", { name: "Pricing" }).click();
     await expect(page).toHaveURL(/#pricing$/);
-    await expect(page.getByRole("heading", { name: /Simple pricing for serious launch work/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Pricing that scales with your project/i })).toBeVisible();
   });
 
   test("opens the mobile menu and navigates to contact CTA", async ({ page }) => {
@@ -23,10 +23,10 @@ test.describe("AgencyX landing page", () => {
 
     await page.getByRole("button", { name: "Open menu" }).click();
     const header = page.locator("header");
-    await expect(header.getByRole("link", { name: "Book a build" })).toBeVisible();
-    await header.getByRole("link", { name: "Book a build" }).click();
+    await expect(header.getByRole("link", { name: "Start a project" })).toBeVisible();
+    await header.getByRole("link", { name: "Start a project" }).click();
     await expect(page).toHaveURL(/#contact$/);
-    await expect(page.getByRole("heading", { name: /Let’s build the version/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Let’s talk about your next project/i })).toBeVisible();
   });
 
   test("toggles monthly and yearly pricing", async ({ page }) => {
@@ -48,17 +48,17 @@ test.describe("AgencyX landing page", () => {
 
     const waitlistSection = page.locator("#waitlist");
 
-    await waitlistSection.getByPlaceholder("ari@company.com").fill("not-an-email");
-    await waitlistSection.getByRole("button", { name: "Join waitlist" }).click();
+    await waitlistSection.getByPlaceholder("you@company.com").fill("not-an-email");
+    await waitlistSection.getByRole("button", { name: "Get a quote" }).click();
     await expect(waitlistSection.getByRole("status")).toContainText("Please enter your name.");
 
-    await waitlistSection.getByPlaceholder("Ari Builder").fill("Ari Builder");
-    await waitlistSection.getByRole("button", { name: "Join waitlist" }).click();
+    await waitlistSection.getByPlaceholder("Your name").fill("Ari Builder");
+    await waitlistSection.getByRole("button", { name: "Get a quote" }).click();
     await expect(waitlistSection.getByRole("status")).toContainText("Please enter a valid email.");
 
     const uniqueEmail = `ari-${Date.now()}@example.com`;
-    await waitlistSection.getByPlaceholder("ari@company.com").fill(uniqueEmail);
-    await waitlistSection.getByRole("button", { name: "Join waitlist" }).click();
+    await waitlistSection.getByPlaceholder("you@company.com").fill(uniqueEmail);
+    await waitlistSection.getByRole("button", { name: "Get a quote" }).click();
 
     await expect(waitlistSection.getByRole("status")).toContainText(
       /You're on the AgencyX waitlist.|Waitlist storage is not configured\./,
@@ -69,7 +69,7 @@ test.describe("AgencyX landing page", () => {
     await page.goto("/#faq");
 
     const faqSection = page.locator("#faq");
-    const firstQuestion = faqSection.getByRole("button", { name: "What makes AgencyX different from a normal portfolio site?" });
+    const firstQuestion = faqSection.getByRole("button", { name: "What services does AgencyX offer?" });
     await expect(firstQuestion).toHaveAttribute("aria-expanded", "true");
     await firstQuestion.click();
     await expect(firstQuestion).toHaveAttribute("aria-expanded", "false");
@@ -80,11 +80,11 @@ test.describe("AgencyX landing page", () => {
 
     const contactSection = page.locator("#contact");
 
-    await contactSection.getByPlaceholder("ari@company.com").fill("not-an-email");
+    await contactSection.getByPlaceholder("you@company.com").fill("not-an-email");
     await contactSection.getByRole("button", { name: "Send message" }).click();
     await expect(contactSection.getByRole("status")).toContainText("Please fix the errors below.");
 
-    await contactSection.getByPlaceholder("Ari Builder").fill("Ari Builder");
+    await contactSection.getByPlaceholder("Your name").fill("Ari Builder");
     await contactSection.getByRole("button", { name: "Send message" }).click();
     await expect(contactSection.getByText("Valid email is required")).toBeVisible();
   });
@@ -121,11 +121,11 @@ test.describe("AgencyX landing page", () => {
   test("renders proof, testimonials, FAQ, blog, and contact sections", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByText("Trusted signal for modern AI teams")).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Loved by founders/i })).toBeVisible();
+    await expect(page.locator("#stats").getByText("Trusted by teams who ship fast")).toBeVisible();
+    await expect(page.getByRole("heading", { name: /What our clients say/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Questions before the next build/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Notes from the AI launch floor/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Let’s build the version/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Notes from the studio/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Let’s talk about your next project/i })).toBeVisible();
   });
 
   test("navigates testimonial carousel", async ({ page }) => {

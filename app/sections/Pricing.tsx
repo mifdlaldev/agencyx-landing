@@ -28,27 +28,27 @@ const plans: readonly Plan[] = [
   {
     id: "starter",
     name: "Starter",
-    description: "A premium one-page system for validating a new offer.",
+    description: "A polished landing page or brochure site to establish your online presence.",
     monthly: 499,
     yearly: 4990,
-    features: ["One landing page", "Responsive design", "Waitlist or contact form", "Launch QA checklist"],
+    features: ["Single-page website", "Responsive design", "Contact form integration", "SEO fundamentals", "Launch support"],
   },
   {
     id: "growth",
     name: "Growth",
-    description: "For teams that need a credible product story and conversion loop.",
+    description: "A multi-page website with CMS, blog, and conversion tools for growing teams.",
     monthly: 1299,
     yearly: 12990,
-    badge: "Best signal",
-    features: ["Bento feature system", "Pricing and FAQ", "Database-backed waitlist", "E2E flow coverage", "Priority revisions"],
+    badge: "Most popular",
+    features: ["Multi-page website", "CMS & blog setup", "Analytics integration", "Performance optimization", "Priority support", "3 revision rounds"],
   },
   {
     id: "enterprise",
     name: "Enterprise",
-    description: "Custom launch systems for AI, security, and B2B teams.",
+    description: "Custom web applications, dashboards, and platforms built for scale.",
     monthly: null,
     yearly: null,
-    features: ["Custom product visuals", "Security/trust narrative", "Integration planning", "Dedicated handoff"],
+    features: ["Custom web application", "Database & API design", "Authentication & security", "Ongoing maintenance", "Dedicated team"],
   },
 ] as const;
 
@@ -68,11 +68,12 @@ export function Pricing() {
           <FadeIn className="max-w-3xl">
             <p className="pill w-fit border-primary/15 bg-primary/5 text-primary">
               <Sparkles aria-hidden="true" size={14} />
-              Shadcn-style pricing
+              Transparent pricing
             </p>
-            <h2 className="heading-lg mt-5">Simple pricing for serious launch work.</h2>
+            <h2 className="heading-lg mt-5">Pricing that scales with your project.</h2>
             <p className="body-lg mt-5">
-              Dummy agency tiers designed to look realistic for portfolio review while keeping the product scope simple.
+              Clear packages designed for startups, growing businesses, and enterprises that need
+              reliable delivery without hidden costs.
             </p>
           </FadeIn>
           <FadeIn delay={0.08}>

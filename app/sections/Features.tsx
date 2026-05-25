@@ -1,4 +1,4 @@
-import { AlertTriangle, ArrowRight, BrainCircuit, Boxes, CheckCircle2, LockKeyhole, Network, ShieldCheck, Sparkles, Workflow } from "lucide-react";
+import { AlertTriangle, ArrowRight, Boxes, CheckCircle2, Code2, LockKeyhole, Network, Palette, ShieldCheck, Sparkles, Workflow } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { AnimatedBeam } from "@/components/effects/AnimatedBeam";
 import { FadeIn } from "@/components/motion/FadeIn";
@@ -10,35 +10,35 @@ const features: ReadonlyArray<{
   className: string;
 }> = [
   {
-    title: "AI-native positioning",
-    description: "Turn raw founder notes into concise hero copy, proof points, and CTA architecture that reads like a polished product launch.",
-    icon: BrainCircuit,
+    title: "Custom web development",
+    description: "From landing pages to complex web apps, we build fast, scalable solutions using modern frameworks like Next.js, React, and Node.js.",
+    icon: Code2,
     className: "lg:col-span-2",
   },
   {
-    title: "Bento product storytelling",
-    description: "Feature grids, use cases, and flows that make complex services feel simple.",
-    icon: Boxes,
+    title: "UI/UX design systems",
+    description: "Pixel-perfect interfaces with cohesive design systems that make your product feel polished and professional from day one.",
+    icon: Palette,
     className: "",
   },
   {
-    title: "Conversion-ready forms",
-    description: "Waitlists and contact flows with validation, API boundaries, and database persistence.",
+    title: "Full-stack applications",
+    description: "End-to-end development with real databases, APIs, authentication, and everything your app needs to go live.",
     icon: Workflow,
     className: "",
   },
   {
-    title: "Trust and proof systems",
-    description: "Stats, logos, testimonials, and dark enterprise panels that make your site feel credible fast.",
+    title: "Brand & digital strategy",
+    description: "We align design, messaging, and user flow so every visitor understands your value within the first few seconds.",
     icon: ShieldCheck,
     className: "lg:col-span-2",
   },
 ] as const;
 
 const risks = [
-  { icon: AlertTriangle, title: "Unclear offer", copy: "Visitors leave before they understand why you exist." },
-  { icon: LockKeyhole, title: "Weak trust", copy: "No proof, no systems, no confidence for decision makers." },
-  { icon: Network, title: "No launch loop", copy: "Forms, data, and follow-up are disconnected from the page." },
+  { icon: AlertTriangle, title: "Slow delivery", copy: "Deadlines slip and opportunities are missed when development lacks structure." },
+  { icon: LockKeyhole, title: "Poor UX", copy: "Confusing interfaces drive visitors away before they become customers." },
+  { icon: Network, title: "No maintenance", copy: "Launch is just the start. Without support, your product quickly becomes outdated." },
 ] as const;
 
 export function Features() {
@@ -48,14 +48,14 @@ export function Features() {
         <FadeIn className="max-w-3xl">
           <p className="pill w-fit border-primary/15 bg-primary/5 text-primary">
             <Sparkles aria-hidden="true" size={14} />
-            Platform design system
+            Services we deliver
           </p>
           <h2 className="heading-lg mt-5">
-            Everything you need to look credible before the sales call.
+            Everything you need to launch and grow online.
           </h2>
           <p className="body-lg mt-5">
-            AgencyX blends technical product design, persuasive landing page copy, and AI-ready
-            interaction patterns into one cohesive launch surface.
+            AgencyX combines design, development, and strategy into a single delivery process.
+            You get a team that ships fast and thinks long-term.
           </p>
         </FadeIn>
 
@@ -74,7 +74,7 @@ export function Features() {
                       <p className="mt-3 leading-7 text-muted-foreground">{feature.description}</p>
                     </div>
                     <div className="mt-8 flex items-center gap-2 text-sm font-extrabold text-primary">
-                      Learn how
+                      Learn more
                       <ArrowRight aria-hidden="true" size={16} />
                     </div>
                   </div>
@@ -89,12 +89,13 @@ export function Features() {
             <AnimatedBeam className="right-8 top-10 opacity-45" variant="cyan" />
             <div className="relative z-10 grid gap-10 lg:grid-cols-[0.72fr_1fr] lg:items-center">
               <div>
-                <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-cyan-200/80">Runlayer-inspired control</p>
+                <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-cyan-200/80">Why teams choose us</p>
                 <h3 className="mt-4 text-4xl font-extrabold tracking-[-0.06em] sm:text-5xl">
-                  Stop shipping pages that leak trust.
+                  Stop losing customers to bad digital experiences.
                 </h3>
                 <p className="mt-5 text-lg leading-8 text-white/65">
-                  A great agency site has to communicate speed, safety, taste, and business impact. This redesign makes those signals visible in every section.
+                  A great agency site or product needs to communicate speed, quality, and reliability.
+                  We make those signals visible in every pixel we ship.
                 </p>
               </div>
               <div className="grid gap-3">

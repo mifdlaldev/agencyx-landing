@@ -7,24 +7,24 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
-    question: "What makes AgencyX different from a normal portfolio site?",
+    question: "What services does AgencyX offer?",
     answer:
-      "The page is designed like a technical SaaS product: clear positioning, proof, bento feature systems, conversion forms, and real API/database boundaries. It signals both frontend taste and engineering reliability.",
+      "We specialize in custom web development, UI/UX design, full-stack applications, and digital strategy. From landing pages to complex platforms, we handle the entire build process.",
   },
   {
-    question: "Can this design still work for freelance clients?",
+    question: "How long does a typical project take?",
     answer:
-      "Yes. The content stays agency-oriented, but the UI language borrows from high-end AI SaaS references so clients see a premium, modern, and commercially useful result.",
+      "A landing page usually takes 1–2 weeks. A full website with CMS takes 3–4 weeks. Custom web applications depend on scope, but we always provide a clear timeline before starting.",
   },
   {
-    question: "Does the redesign change the database or API?",
+    question: "Do you work with clients remotely?",
     answer:
-      "No. The waitlist and contact APIs remain intact. The redesign focuses on presentation, component quality, and conversion flow while preserving existing behavior.",
+      "Yes. We work with clients worldwide through async updates, scheduled calls, and shared project dashboards. Remote collaboration is built into our process.",
   },
   {
-    question: "Why use Plus Jakarta Sans?",
+    question: "What technologies do you use?",
     answer:
-      "It is readable, modern, and slightly heavier than a neutral default font. It makes headings feel bold without sacrificing clarity in body copy and forms.",
+      "We use modern, proven stacks: Next.js and React for frontend, Node.js and PostgreSQL for backend, and cloud platforms like Vercel and AWS for deployment.",
   },
 ] as const;
 
@@ -37,7 +37,7 @@ export function FAQ() {
         <FadeIn>
           <p className="pill w-fit border-primary/15 bg-primary/5 text-primary">FAQ</p>
           <h2 className="heading-lg mt-5">Questions before the next build.</h2>
-          <p className="body-lg mt-5">Clear answers for recruiters, clients, and anyone reviewing the project.</p>
+          <p className="body-lg mt-5">Clear answers about our process, timeline, and how we work.</p>
         </FadeIn>
 
         <div className="rounded-[2rem] border border-border bg-white p-2 shadow-soft">
@@ -57,7 +57,7 @@ export function FAQ() {
                       {isOpen ? <Minus aria-hidden="true" size={16} /> : <Plus aria-hidden="true" size={16} />}
                     </span>
                   </button>
-                  <div className={cn("grid transition-[grid-template-rows] duration-300", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}> 
+                  <div className={cn("grid transition-[grid-template-rows] duration-300", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
                     <div className="min-h-0 overflow-hidden">
                       <p className="px-5 pb-5 leading-7 text-muted-foreground">{faq.answer}</p>
                     </div>

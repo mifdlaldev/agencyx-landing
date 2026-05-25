@@ -61,10 +61,10 @@ export function Navbar() {
         <div className="hidden items-center gap-2 md:flex">
           <a href="#waitlist" className="pill border-primary/15 bg-primary/5 text-primary">
             <Sparkles aria-hidden="true" size={14} />
-            AI-ready
+            Open for projects
           </a>
           <a href="#contact" className={buttonStyles({ variant: "primary", size: "sm" })}>
-            Book a build
+            Start a project
           </a>
         </div>
 
@@ -97,7 +97,7 @@ export function Navbar() {
               onClick={closeMenu}
               className={buttonStyles({ variant: "primary", className: "mt-2 w-full" })}
             >
-              Book a build
+              Start a project
             </a>
           </div>
         </div>

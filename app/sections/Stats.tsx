@@ -5,13 +5,13 @@ import { useInView } from "framer-motion";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 const stats = [
-  { value: 120, suffix: "+", label: "launch systems" },
+  { value: 120, suffix: "+", label: "projects delivered" },
   { value: 48, suffix: "h", label: "prototype sprint" },
-  { value: 3, suffix: "x", label: "message clarity" },
-  { value: 98, suffix: "%", label: "client confidence" },
+  { value: 98, suffix: "%", label: "client satisfaction" },
+  { value: 3, suffix: "x", label: "faster turnaround" },
 ] as const;
 
-const logos = ["Cursor", "AWS", "Databricks", "Groq", "Gamma", "HubSpot", "Browserbase", "Klarna"] as const;
+const logos = ["Shopify", "Stripe", "Notion", "Figma", "Vercel", "Linear", "Supabase", "Framer"] as const;
 
 function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -47,7 +47,7 @@ export function Stats() {
       <div className="section-shell">
         <FadeIn>
           <p className="text-center text-sm font-extrabold uppercase tracking-[0.22em] text-muted-foreground">
-            Trusted signal for modern AI teams
+            Trusted by teams who ship fast
           </p>
           <div className="mt-8 grid grid-cols-2 gap-3 text-center sm:grid-cols-4 lg:grid-cols-8">
             {logos.map((logo) => (

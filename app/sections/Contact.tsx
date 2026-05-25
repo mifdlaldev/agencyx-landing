@@ -25,7 +25,7 @@ export function Contact() {
   const [mounted, setMounted] = useState(false);
   const [status, setStatus] = useState<{ type: Status; message: string }>({
     type: "idle",
-    message: "Send a project inquiry when you are ready.",
+    message: "Tell us about your project and we will respond quickly.",
   });
 
   useEffect(() => setMounted(true), []);
@@ -81,9 +81,10 @@ export function Contact() {
       <div className="section-shell grid gap-10 lg:grid-cols-[0.42fr_0.58fr] lg:gap-16">
         <FadeIn>
           <p className="pill w-fit border-primary/15 bg-primary/5 text-primary">Project inquiry</p>
-          <h2 className="heading-lg mt-5">Let’s build the version recruiters and clients remember.</h2>
+          <h2 className="heading-lg mt-5">Let’s talk about your next project.</h2>
           <p className="body-lg mt-5">
-            Use this final form to show validation, polished inputs, and a low-friction conversion path.
+            Whether you need a new website, a web app, or a full rebrand, we are here to help.
+            Fill out the form and we will get back to you within 24 hours.
           </p>
           <div className="mt-8 grid gap-3">
             {[
@@ -115,7 +116,7 @@ export function Contact() {
                   value={form.name}
                   onChange={(event) => updateField("name", event.target.value)}
                   disabled={pending || !mounted}
-                  placeholder="Ari Builder"
+                  placeholder="Your name"
                   className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold outline-none transition placeholder:text-muted-foreground focus:border-primary"
                 />
               </Field>
@@ -124,7 +125,7 @@ export function Contact() {
                   value={form.email}
                   onChange={(event) => updateField("email", event.target.value)}
                   disabled={pending || !mounted}
-                  placeholder="ari@company.com"
+                  placeholder="you@company.com"
                   type="email"
                   className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold outline-none transition placeholder:text-muted-foreground focus:border-primary"
                 />
@@ -135,7 +136,7 @@ export function Contact() {
                 value={form.subject}
                 onChange={(event) => updateField("subject", event.target.value)}
                 disabled={pending || !mounted}
-                placeholder="AI SaaS landing page"
+                placeholder="E-commerce website redesign"
                 className="h-12 w-full rounded-2xl border border-border bg-muted/50 px-4 text-sm font-semibold outline-none transition placeholder:text-muted-foreground focus:border-primary"
               />
             </Field>
@@ -144,7 +145,7 @@ export function Contact() {
                 value={form.message}
                 onChange={(event) => updateField("message", event.target.value)}
                 disabled={pending || !mounted}
-                placeholder="Tell me about your project..."
+                placeholder="Tell us about your project goals, timeline, and budget..."
                 rows={5}
                 className="w-full resize-none rounded-2xl border border-border bg-muted/50 px-4 py-3 text-sm font-semibold outline-none transition placeholder:text-muted-foreground focus:border-primary"
               />
